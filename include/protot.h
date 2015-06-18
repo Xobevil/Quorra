@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Thu Jun 18 19:05:18 2015 sylvain garant
+** Last update Thu Jun 18 21:04:20 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -51,7 +51,7 @@ void    aff_gene(double gene);
 void    aff_genome(double *genome);
 void    free_network(t_lyr *network);
 int     doubtabcmp(double *st, double *nd);
-double	highest_doubtab(double *doubtab);
+int	highest_doubtab(double *doubtab[]);
 void    write_genome(int fd, double *doubtab);
 
 #endif

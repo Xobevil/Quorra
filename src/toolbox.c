@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Thu Jun 18 19:04:52 2015 sylvain garant
+** Last update Thu Jun 18 21:04:13 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -19,15 +19,17 @@ void	write_genome(int fd, double *doubtab)
     }
 }
 
-double		highest_doubtab(double *doubtab)
+int	highest_doubtab(double *doubtab[])
 {
-  double	*ptr;
+  int	buf;
+  int	i;
 
-  ptr = doubtab;
-  while (*doubtab++)
-    if (*ptr < *(doubtab - 1))
-      ptr = doubtab;
-  return (*ptr);
+  i = -1;
+  buf = 0;
+  while (++i < 10)
+    if (*doubtab[buf] < *doubtab[i])
+      buf = i;
+  return (buf);
 }
 
 int     doubtabcmp(double *st, double *nd)
@@ -65,7 +67,6 @@ void		aff_genome(double *genome)
   get_gene(genome);
   while ((gene = get_gene(NULL)))
     aff_gene(gene);
-  printf("\n");
 }
 
 void    free_network(t_lyr *network)

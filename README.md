@@ -1,2 +1,0 @@
-# Quorra
-Neural Network

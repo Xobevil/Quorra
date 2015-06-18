@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 09:08:43 2015 sylvain garant
-** Last update Thu Jun 18 11:17:29 2015 sylvain garant
+** Last update Thu Jun 18 19:46:48 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -34,9 +34,9 @@ static double		generate_gene()
 static int	check_param(int lyrNb, int *pctNb)
 {
   if (lyrNb <= 0)
-    return (-1);
+    return (printerr(6));
   if (intlen(pctNb) != lyrNb)
-    return (-1);
+    return (printerr(6));
   return (0);
 }
 
