@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:24:22 2015 sylvain garant
-** Last update Fri Jun 19 10:46:49 2015 sylvain garant
+** Last update Fri Jun 19 14:10:01 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -39,9 +39,10 @@ void	free_generator(double **genome, double **output, int bestGen)
     }
 }
 
-double		*generator(double *ipt, int iptSize, double *opt, int optSize)
+double		*generator(double *ipt, int iptSize,
+			   double *opt, int optSize, double acc)
 {
-  int		bestGenomeEUW;
+  int		bestGen;
   double	*genome[10];
   double	*output[10];
   int		*pctNb;
@@ -49,10 +50,10 @@ double		*generator(double *ipt, int iptSize, double *opt, int optSize)
 
   if (!(pctNb = create_pct_tab(iptSize, optSize, 3)))
     return (NULL);
-  bestGenomeEUW = -1;
-  while (bestGenomeEUW == -1 || !acceptation(output[bestGenomeEUW], opt, 0.2))
+  bestGen = -1;
+  while (bestGen == -1 || !acceptation(output[bestGen], opt, optSize, acc))
     {
-      if (bestGenomeEUW != -1)
+      if (bestGen != -1)
 	free_generator(genome, output, -1);
       i = -1;
       while (++i < 10)
@@ -61,29 +62,11 @@ double		*generator(double *ipt, int iptSize, double *opt, int optSize)
       while (--i >= 0)
 	if (!(output[i] = neural_network(genome[i], ipt)))
 	  return (NULL);
-      bestGenomeEUW = highest_doubtab(output);
+      bestGen = best_doubtab(output, opt, optSize);
     }
-  free_generator(genome, output, bestGenomeEUW);
+  free_generator(genome, output, bestGen);
   free(pctNb);
-  return (genome[bestGenomeEUW]);
-}
-
-int	save_genome(char *file, double *genome)
-{
-  int	fd;
-
-  if (!match(file, "*.gen"))
-    return (printerr(8));
-  if ((fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR)) == -1)
-    return (printerr(7));
-  while (*genome)
-    {
-      write(fd, genome, sizeof(double));
-      genome++;
-    }
-  printf("Saved : %s\n", file);
-  close(fd);
-  return (0);
+  return (genome[bestGen]);
 }
 
 int		main(int argc, char **argv)
@@ -95,17 +78,25 @@ int		main(int argc, char **argv)
 
   srand(getpid() * time(0));
   user_input(argc, argv, &cnf);
-  if (!(input = malloc(sizeof(double) * 2)))
-    return (-1);
-  input[0] = 1;
-  input[1] = 0;
-  if (!(output = malloc(sizeof(double) * 1)))
-    return (-1);
-  output[0] = 1;
-  if (!(genome = generator(input, 2, output, 1)))
-    return (-1);
-  if (IS_SVE(cnf.conf))
-    save_genome(cnf.sve, genome);
+  input = NULL;
+  output = NULL;
+  genome = NULL;
+  if (IS_PCT(cnf.conf))
+    if (create_io_pct(cnf.pct, &input, &output))
+      return (printerr(9));
+  if (input && output)
+    {
+      if (IS_ACC(cnf.conf))
+	{
+	  if (!(genome = generator(input, 2, output, 1, atof(cnf.acc))))
+	    return (printerr(10));
+	}
+      else
+	if (!(genome = generator(input, 2, output, 1, 0.0)))
+	  return (printerr(10));
+      if (genome && IS_SVE(cnf.conf))
+	save_genome(cnf.sve, genome);
+    }
   free(genome);
   free(input);
   free(output);

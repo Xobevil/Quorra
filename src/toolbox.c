@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Fri Jun 19 09:53:44 2015 sylvain garant
+** Last update Fri Jun 19 14:07:23 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -19,16 +19,36 @@ void	write_genome(int fd, double *doubtab)
     }
 }
 
-int	highest_doubtab(double *doubtab[])
+double		doubtabavg(double *doubtab, int size)
 {
-  int	buf;
-  int	i;
+  int		i;
+  double	result;
+
+  i = -1;
+  result = 0;
+  while (++i < size)
+    result += doubtab[i];
+  result /= size;
+  return (result);
+}
+
+int		best_doubtab(double *doubtab[], double *out, int size)
+{
+  double	avgo;
+  double	avg;
+  int		buf;
+  int		i;
 
   i = -1;
   buf = 0;
+  avgo = doubtabavg(out, size);
+  avg = doubtabavg(doubtab[0], size);
   while (++i < 10)
-    if (*doubtab[buf] < *doubtab[i])
-      buf = i;
+    if (ABS(avgo - doubtabavg(doubtab[i], size)) < ABS(avgo - avg))
+      {
+	avg = doubtabavg(doubtab[i], size);
+	buf = i;
+      }
   return (buf);
 }
 
@@ -83,14 +103,13 @@ void    free_network(t_lyr *network)
   free(network);
 }
 
-int	acceptation(double *st, double *nd, double acc)
+int	acceptation(double *st, double *nd, int size, double acc)
 {
-  while (*st && *nd)
-    {
-      if ((*st - *nd) > acc || (*st - *nd) < -acc)
-	return (0);
-      st++;
-      nd++;
-    }
+  int	i;
+
+  i = -1;
+  while (++i < size)
+    if ((st[i] - nd[i]) > acc || (st[i] - nd[i]) < -acc)
+      return (0);
   return (1);
 }

@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:25:00 2015 sylvain garant
-** Last update Fri Jun 19 10:45:09 2015 sylvain garant
+** Last update Fri Jun 19 14:07:04 2015 sylvain garant
 */
 
 #ifndef QUORRA_H_
@@ -33,6 +33,7 @@
 #define SVE 0b00001000
 #define GEN 0b00010000
 #define PCT 0b00100000
+#define ACC 0b01000000
 
 #define IS_CSV(value) ((value & CSV) ? (1) : (0))
 #define IS_IPT(value) ((value & IPT) ? (1) : (0))
@@ -40,5 +41,8 @@
 #define IS_SVE(value) ((value & SVE) ? (1) : (0))
 #define IS_GEN(value) ((value & GEN) ? (1) : (0))
 #define IS_PCT(value) ((value & PCT) ? (1) : (0))
+#define IS_ACC(value) ((value & ACC) ? (1) : (0))
+
+#define ABS(value) ((value < 0) ? -(value) : (value))
 
 #endif

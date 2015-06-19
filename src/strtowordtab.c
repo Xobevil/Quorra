@@ -5,13 +5,15 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Mon Jun 15 09:31:38 2015 sylvain garant
-** Last update Thu Jun 18 10:57:52 2015 sylvain garant
+** Last update Fri Jun 19 11:05:06 2015 sylvain garant
 */
 
 #include <stdlib.h>
 
 int	is_sep(char c, char *sep)
 {
+  if (!c)
+    return (1);
   while (*sep)
     if (c == *sep++)
       return (1);

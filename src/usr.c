@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:07:14 2015 sylvain garant
-** Last update Fri Jun 19 10:45:58 2015 sylvain garant
+** Last update Fri Jun 19 11:55:07 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -48,5 +48,53 @@ void    user_input(int argc, char **argv, t_cnf *cnf)
           cnf->conf |= PCT;
           cnf->pct = argv[i + 1];
 	}
+      else if (match(argv[i], "-a") && i + 1 < argc)
+        {
+          cnf->conf |= ACC;
+          cnf->acc = argv[i + 1];
+	}
     }
+}
+
+int     save_genome(char *file, double *genome)
+{
+  int   fd;
+
+  if (!match(file, "*.gen"))
+    return (printerr(8));
+  if ((fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR)) == -1)
+    return (printerr(7));
+  while (*genome)
+    {
+      write(fd, genome, sizeof(double));
+      genome++;
+    }
+  printf("Saved : %s\n", file);
+  close(fd);
+  return (0);
+}
+
+int		create_io_pct(char *pct, double **input, double **output)
+{
+  char          **st;
+  double        *i;
+  double        *o;
+
+  if (*input || *output)
+    return (-1);
+  if (!(st = strtowordtab(pct, ", ")))
+    return (printerr(12));
+  if (!st[0] || !st[1] || !st[2] || st[3])
+    return (printerr(13));
+  if (!(i = malloc(sizeof(double) * 2)))
+    return (printerr(11));
+  i[0] = atof(st[0]);
+  i[1] = atof(st[1]);
+  if (!(o = malloc(sizeof(double) * 1)))
+    return (printerr(11));
+  o[0] = atof(st[2]);
+  free(st);
+  *input = i;
+  *output = o;
+  return (0);
 }

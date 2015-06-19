@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Fri Jun 19 09:39:34 2015 sylvain garant
+** Last update Fri Jun 19 13:45:23 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -44,6 +44,8 @@ int     add_img(t_img **top, char *file);
 
 /* usr.c */
 void    user_input(int argc, char **argv, t_cnf *cnf);
+int     save_genome(char *file, double *genome);
+int	create_io_pct(char *pct, double **input, double **output);
 
 /* toolbox.c */
 int     doublen(double *dlen);
@@ -51,8 +53,9 @@ void    aff_gene(double gene);
 void    aff_genome(double *genome);
 void    free_network(t_lyr *network);
 int     doubtabcmp(double *st, double *nd);
-int	highest_doubtab(double *doubtab[]);
+int	best_doubtab(double *doubtab[], double *out, int size);
 void    write_genome(int fd, double *doubtab);
-int     acceptation(double *st, double *nd, double acc);
+int     acceptation(double *st, double *nd, int size, double acc);
+double  to_zero(double thing);
 
 #endif
