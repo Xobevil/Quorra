@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Thu Jun 18 21:04:20 2015 sylvain garant
+** Last update Fri Jun 19 09:39:34 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -53,5 +53,6 @@ void    free_network(t_lyr *network);
 int     doubtabcmp(double *st, double *nd);
 int	highest_doubtab(double *doubtab[]);
 void    write_genome(int fd, double *doubtab);
+int     acceptation(double *st, double *nd, double acc);
 
 #endif

@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 23:21:35 2015 sylvain garant
-** Last update Thu Jun 18 19:46:27 2015 sylvain garant
+** Last update Fri Jun 19 10:26:53 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -22,5 +22,9 @@ int     printerr(int errnb)
     write(2, "Can't open file\n", 16);
   if (errnb == 6)
     write(2, "Incorrect i/o param\n", 20);
+  if (errnb == 7)
+    write(2, "Failed to open saving file\n", 27);
+  if (errnb == 8)
+    write(2, "Bad saving format, must be .gen\n", 32);
   return (-1);
 }

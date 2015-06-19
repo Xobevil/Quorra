@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Thu Jun 18 21:04:13 2015 sylvain garant
+** Last update Fri Jun 19 09:53:44 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -81,4 +81,16 @@ void    free_network(t_lyr *network)
     }
   free(buf->lyr);
   free(network);
+}
+
+int	acceptation(double *st, double *nd, double acc)
+{
+  while (*st && *nd)
+    {
+      if ((*st - *nd) > acc || (*st - *nd) < -acc)
+	return (0);
+      st++;
+      nd++;
+    }
+  return (1);
 }
