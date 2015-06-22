@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:24:22 2015 sylvain garant
-** Last update Fri Jun 19 16:15:22 2015 sylvain garant
+** Last update Mon Jun 22 11:22:15 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -69,12 +69,18 @@ double		*generator(double *ipt, int iptSize,
   return (genome[bestGen]);
 }
 
+/* int	create_io_img(t_img *top, double *input, double *output) */
+/* { */
+  
+/* } */
+
 int		main(int argc, char **argv)
 {
-  t_cnf		cnf;
-  double	*input;
   double	*output;
   double	*genome;
+  double	*input;
+  t_cnf		cnf;
+  t_img		*img;
 
   srand(getpid() * time(0));
   user_input(argc, argv, &cnf);
@@ -86,6 +92,9 @@ int		main(int argc, char **argv)
   if (IS_PCT(cnf.conf))
     if (create_io_pct(cnf.pct, &input, &output))
       return (printerr(9));
+  if (IS_IPT(cnf.conf))
+    if (add_img(&img, cnf.ipt))
+      return (-1);
   if (input && output)
     {
       if (IS_ACC(cnf.conf))
@@ -99,6 +108,8 @@ int		main(int argc, char **argv)
       if (genome && IS_SVE(cnf.conf))
 	save_genome(cnf.sve, genome);
     }
+  if (IS_IPT(cnf.conf))
+    free_img(img);
   free(genome);
   free(input);
   free(output);

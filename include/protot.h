@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Fri Jun 19 13:45:23 2015 sylvain garant
+** Last update Mon Jun 22 10:39:45 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -16,6 +16,7 @@ int     printerr(int errnb);
 
 /* open_file.c */
 int	open_file(char *file, char *ext);
+FILE	*fopen_file(char *file, char *ext);
 
 /* genome.c */
 double	get_gene(double *genome);
@@ -41,6 +42,7 @@ char	**strtowordtab(char *str, char *sep);
 
 /* img.c */
 int     add_img(t_img **top, char *file);
+void    free_img(t_img *destroy);
 
 /* usr.c */
 void    user_input(int argc, char **argv, t_cnf *cnf);

@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:34:04 2015 sylvain garant
-** Last update Fri Jun 19 15:16:40 2015 sylvain garant
+** Last update Mon Jun 22 09:53:23 2015 sylvain garant
 */
 
 #ifndef STRUCT_H_
@@ -33,7 +33,7 @@ typedef struct	s_img
   int		x;
   int		y;
   int		max;
-  unsigned char	**pix;
+  unsigned char	*pix;
   struct s_img	*next;
 }		t_img;
 
