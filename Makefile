@@ -5,7 +5,7 @@
 ## Login   <garant_s@epitech.net>
 ##
 ## Started on  Tue Jun 16 22:21:12 2015 sylvain garant
-## Last update Fri Jun 19 14:16:57 2015 sylvain garant
+## Last update Fri Jun 19 16:12:57 2015 sylvain garant
 ##
 
 NAME	= q
@@ -33,7 +33,7 @@ CFLAGS	+= -W -Wall -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	cc -o $(NAME) $(OBJ) -lm -g3
+	cc -o $(NAME) $(OBJ) -lm
 
 clean:
 	$(RM) $(OBJ)

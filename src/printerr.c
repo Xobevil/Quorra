@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 23:21:35 2015 sylvain garant
-** Last update Fri Jun 19 11:45:46 2015 sylvain garant
+** Last update Fri Jun 19 16:34:30 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -36,5 +36,7 @@ int     printerr(int errnb)
     write(2, "strtowordtab() failed\n", 19);
   if (errnb == 13)
     write(2, "Perceptrons must only have 2 inputs and 1 output\n", 49);
+  if (errnb == 14)
+    write(2, "./q -pct OPTION [-s SAVE FILE] [-a ACC]\n", 40);
   return (-1);
 }

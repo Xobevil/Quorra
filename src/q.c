@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:24:22 2015 sylvain garant
-** Last update Fri Jun 19 14:10:01 2015 sylvain garant
+** Last update Fri Jun 19 16:15:22 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -78,6 +78,8 @@ int		main(int argc, char **argv)
 
   srand(getpid() * time(0));
   user_input(argc, argv, &cnf);
+  if (!cnf.conf)
+    return (printerr(14));
   input = NULL;
   output = NULL;
   genome = NULL;
@@ -102,29 +104,3 @@ int		main(int argc, char **argv)
   free(output);
   return (0);
 }
-
-/* int		main(int argc, char **argv) */
-/* { */
-/*   t_cnf		cnf; */
-/*   double	*input; */
-/*   double	*output; */
-/*   double	*genome; */
-
-/*   srand(getpid() * time(0)); */
-/*   user_input(argc, argv, &cnf); */
-/*   if (!(input = malloc(sizeof(double) * 2))) */
-/*     return (-1); */
-/*   input[0] = 1; */
-/*   input[1] = 0; */
-/*   if (!(output = malloc(sizeof(double) * 1))) */
-/*     return (-1); */
-/*   output[0] = 1; */
-/*   if (!(genome = generator(input, 2, output, 1))) */
-/*     return (-1); */
-/*   if (IS_SVE(cnf.conf)) */
-/*     save_genome(cnf.sve, genome); */
-/*   free(genome); */
-/*   free(input); */
-/*   free(output); */
-/*   return (0); */
-/* } */

@@ -5,11 +5,17 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:34:04 2015 sylvain garant
-** Last update Fri Jun 19 11:47:41 2015 sylvain garant
+** Last update Fri Jun 19 15:16:40 2015 sylvain garant
 */
 
 #ifndef STRUCT_H_
 # define STRUCT_H_
+
+typedef union		uDouble
+{
+  double		d;
+  unsigned long int	i;
+}			uDouble;
 
 typedef struct	s_cnf
 {
