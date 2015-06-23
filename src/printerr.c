@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 23:21:35 2015 sylvain garant
-** Last update Tue Jun 23 11:24:45 2015 sylvain garant
+** Last update Tue Jun 23 14:56:45 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -20,6 +20,7 @@ void	display_help()
   printf("-s SAVE GENOME IN GEN FILE\n");
   printf("Example :\n\t./q -pct \"1,0,1\" -s perceptron.gen -a 0.18\n");
   printf("\t./q -i picture.pgm -o 1 -s img.gen -a 0.3\n");
+  printf("\t./q -pct \"0 1 0\" -g my_gene.gen\n");
 }
 
 int     printerr(int errnb)

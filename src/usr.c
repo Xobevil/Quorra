@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:07:14 2015 sylvain garant
-** Last update Mon Jun 22 16:34:54 2015 sylvain garant
+** Last update Tue Jun 23 14:44:51 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -69,7 +69,7 @@ int     save_genome(char *file, double *genome)
       write(fd, genome, sizeof(double));
       genome++;
     }
-  printf("Saved : %s\n", file);
+  printf("Genome saved in file : %s\n", file);
   close(fd);
   return (0);
 }

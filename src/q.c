@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:24:22 2015 sylvain garant
-** Last update Mon Jun 22 16:37:31 2015 sylvain garant
+** Last update Tue Jun 23 14:59:26 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -19,7 +19,7 @@ int	preliminary(t_cnf *cnf, t_img **img, t_put *input, t_put *output)
       input->size = 2;
       output->size = 1;
     }
-  else if (IS_IPT(cnf->conf) && IS_OPT(cnf->conf))
+  else if (IS_IPT(cnf->conf) && IS_OPT(cnf->conf) && !IS_GEN(cnf->conf))
     {
       if (add_img(img, cnf->ipt) ||
 	  (output->size = create_io_img(*img, cnf->opt,
@@ -64,10 +64,10 @@ void	freedom(t_cnf *cnf, t_img *img, double *genome,
 
 int		main(int argc, char **argv)
 {
-  double	*genome;
+  double	*genome = NULL;
   t_put		output;
   t_put		input;
-  t_img		*img;
+  t_img		*img = NULL;
   t_cnf		cnf;
 
   srand(getpid() * time(0));

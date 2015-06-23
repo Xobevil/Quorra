@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 14:40:39 2015 sylvain garant
-** Last update Tue Jun 23 11:24:40 2015 sylvain garant
+** Last update Tue Jun 23 15:52:24 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -69,7 +69,7 @@ int		step(t_lyr left, t_lyr right, double **genome)
 	return (-1);
       (*genome)++;
       right.lyr[ir].y -= gene;
-      right.lyr[ir].y = 1 / (1 + exp(-(right.lyr[ir].y)));
+      right.lyr[ir].y = 1.0 / (1.0 + exp(-(right.lyr[ir].y)));
     }
   return (0);
 }
@@ -81,50 +81,46 @@ void	fillout4(t_pct *olyr, int lyrSize, double *output)
   i = -1;
   while (++i < lyrSize)
     output[i] = olyr[i].y;
-  output[i] = 0;
 }
-
-/* double		*neural_network(double *genome, double *input) */
-/* { */
-/*   t_lyr		*network; */
-/*   double	*output; */
-/*   int		i; */
-
-/*   network = NULL; */
-/*   output = NULL; */
-/*   i = -1; */
-/*   if (!(network = init_network(genome, &output))) */
-/*     return (NULL); */
-/*   fill_input(network->lyr, network->lyrSize, input); */
-/*   while (network[++i].lyrID) */
-/*     step(network[i], network[i + 1], genome); */
-/*   fillout4(network[i].lyr, network[i].lyrSize, output); */
-/*   free_network(network); */
-/*   return (output); */
-/* } */
 
 double		*nn(t_lyr *network, double *genome,
 		    double *input, double *output, int outputSize)
 {
-  int		metadata;
-  double	*genbuf;
   int		i;
 
   i = -1;
-  genbuf = genome;
-  get_gene(genbuf);
-  metadata = (int) get_gene(NULL);
-  genbuf += metadata + 1;
+  genome += ((int) *genome) + 1;
   if (!output)
     if (!(output = malloc(sizeof(double) * outputSize)))
       return (NULL);
   fill_input(network->lyr, network->lyrSize, input);
   while (network[++i].lyrID)
-    if (step(network[i], network[i + 1], &genbuf))
+    if (step(network[i], network[i + 1], &genome))
       {
 	write(2, "step(): Too short genome\n", 25);
 	return (NULL);
       }
   fillout4(network[i].lyr, network[i].lyrSize, output);
   return (output);
+}
+
+int	do_nn(double *genome, double *input, double *output)
+{
+  t_lyr	*network;
+  int	i;
+
+  if (!(network = init_network(genome, &output)))
+    return (-1);
+  i = -1;
+  genome += ((int) *genome) + 1;
+  fill_input(network->lyr, network->lyrSize, input);
+  while (network[++i].lyrID)
+    if (step(network[i], network[i + 1], &genome))
+      {
+        write(2, "step(): Too short genome\n", 25);
+        return (-1);
+      }
+  fillout4(network[i].lyr, network[i].lyrSize, output);
+  free_network(network);
+  return (0);
 }

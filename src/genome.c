@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 09:08:43 2015 sylvain garant
-** Last update Tue Jun 23 10:43:32 2015 sylvain garant
+** Last update Tue Jun 23 15:25:38 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -55,23 +55,22 @@ double          get_gene(double *genome)
   return (*(gen - 1));
 }
 
-double		*generate_genome(int lyrNb, int *pctNb)
+double		*generate_genome(int lyrNb, int *pctNb, double **genome)
 {
   int		genSize;
-  double	*genome;
   int		i;
 
   if (check_param(lyrNb, pctNb))
     return (NULL);
   i = 0;
   genSize = genome_size(lyrNb, pctNb) + intlen(pctNb) + 1;
-  if (!(genome = malloc(sizeof(double) * (genSize + 1))))
+  if (!*genome && !(*genome = malloc(sizeof(double) * (genSize + 1))))
     return (NULL);
-  genome[i++] = (double) lyrNb;
+  (*genome)[i++] = (double) lyrNb;
   while (*pctNb)
-    genome[i++] = (double) *pctNb++;
+    (*genome)[i++] = (double) *pctNb++;
   while (i < genSize)
-    genome[i++] = generate_gene();
-  genome[i] = 0;
-  return (genome);
+    (*genome)[i++] = generate_gene();
+  (*genome)[i] = 0;
+  return (*genome);
 }

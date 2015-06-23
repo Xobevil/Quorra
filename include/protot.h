@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Tue Jun 23 11:20:27 2015 sylvain garant
+** Last update Tue Jun 23 15:24:09 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -20,7 +20,7 @@ FILE	*fopen_file(char *file, char *ext);
 
 /* genome.c */
 double	get_gene(double *genome);
-double  *generate_genome(int lyrNb, int *pctNb);
+double  *generate_genome(int lyrNb, int *pctNb, double **genome);
 
 /* match.c */
 int     match(char *s1, char *s2);
@@ -35,6 +35,7 @@ int     genetX(double *gen1, double *gen2);
 double	*nn(t_lyr *network, double *genome, double *input, double *output,
 	    int outputSize);
 t_lyr   *init_network(double *genome, double **output);
+int     do_nn(double *genome, double *input, double *output);
 
 /* get_next_line.c */
 char	*get_next_line(const int fd);

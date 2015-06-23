@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:25:00 2015 sylvain garant
-** Last update Fri Jun 19 14:07:04 2015 sylvain garant
+** Last update Tue Jun 23 15:55:26 2015 sylvain garant
 */
 
 #ifndef QUORRA_H_
@@ -26,6 +26,8 @@
 #include "get_next_line.h"
 #include "struct.h"
 #include "protot.h"
+
+#define GENSIZE 10
 
 #define CSV 0b00000001
 #define IPT 0b00000010

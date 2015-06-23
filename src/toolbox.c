@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Mon Jun 22 16:53:02 2015 sylvain garant
+** Last update Tue Jun 23 15:54:43 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -42,13 +42,13 @@ double		compute_delta(double *st, double *nd, int size)
 
 int		best_doubtab(double *doubtab[], double *out, int size)
 {
-  double	delta[10];
+  double	delta[GENSIZE];
   double	buf;
   int		i;
   int		bufi;
 
   i = -1;
-  while (++i < 10)
+  while (++i < GENSIZE)
     delta[i] = compute_delta(doubtab[i], out, size);
   bufi = 0;
   buf = delta[bufi];
@@ -118,7 +118,7 @@ int	acceptation(double *st, double *nd, int size, double acc)
 
   i = -1;
   while (++i < size)
-    if ((st[i] - nd[i]) > acc || (st[i] - nd[i]) < -acc)
+    if (ABS((st[i] - nd[i])) > acc)
       return (0);
   return (1);
 }
