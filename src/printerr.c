@@ -5,10 +5,22 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 23:21:35 2015 sylvain garant
-** Last update Mon Jun 22 11:09:49 2015 sylvain garant
+** Last update Tue Jun 23 11:24:45 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
+
+void	display_help()
+{
+  printf("./q [-OPTION FILE|DATA] ...\n");
+  printf("-pct \"[0;1],[0;1],[0;1]\"\n");
+  printf("-a ACCEPTANCE\n");
+  printf("-i PGM FILE\n");
+  printf("-o DESIRED OUTPUT\n");
+  printf("-s SAVE GENOME IN GEN FILE\n");
+  printf("Example :\n\t./q -pct \"1,0,1\" -s perceptron.gen -a 0.18\n");
+  printf("\t./q -i picture.pgm -o 1 -s img.gen -a 0.3\n");
+}
 
 int     printerr(int errnb)
 {
@@ -37,7 +49,7 @@ int     printerr(int errnb)
   else if (errnb == 13)
     write(2, "Perceptrons must only have 2 inputs and 1 output\n", 49);
   else if (errnb == 14)
-    write(2, "./q -pct OPTION [-s SAVE FILE] [-a ACC]\n", 40);
+    display_help();
   else if (errnb == 15)
     write(2, "Failed to recover image\n", 24);
   else if (errnb == 16)

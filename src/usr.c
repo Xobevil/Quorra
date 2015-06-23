@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:07:14 2015 sylvain garant
-** Last update Fri Jun 19 11:55:07 2015 sylvain garant
+** Last update Mon Jun 22 16:34:54 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -97,4 +97,44 @@ int		create_io_pct(char *pct, double **input, double **output)
   *input = i;
   *output = o;
   return (0);
+}
+
+int		create_io_img(t_img *top, char *opt,
+			      double **input, double **output)
+{
+  int		outputSize;
+  char          **st;
+  double	max;
+  double	pix;
+  double        *i;
+  double        *o;
+  int           it;
+
+  it = -1;
+  if (*input || *output)
+    return (-1);
+  if (!(max = top->max))
+    return (-1);
+  if (!(st = strtowordtab(opt, ", ")))
+    return (printerr(12));
+  if (!st[0])
+    return (printerr(13));
+  if (!(i = malloc(sizeof(double) * (top->x * top->y))))
+    return (printerr(11));
+  it = -1;
+  while (++it < top->x * top->y)
+    {
+      pix = top->pix[it];
+      i[it] = 1 - (pix / max);
+    }
+  if (!(o = malloc(sizeof(double) * strlen(opt))))
+    return (printerr(11));
+  it = -1;
+  while (st[++it])
+    o[it] = atof(st[it]);
+  outputSize = strtablen(st);
+  free(st);
+  *input = i;
+  *output = o;
+  return (outputSize);
 }

@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 09:08:43 2015 sylvain garant
-** Last update Thu Jun 18 19:46:48 2015 sylvain garant
+** Last update Tue Jun 23 10:43:32 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -57,9 +57,9 @@ double          get_gene(double *genome)
 
 double		*generate_genome(int lyrNb, int *pctNb)
 {
+  int		genSize;
   double	*genome;
   int		i;
-  int		genSize;
 
   if (check_param(lyrNb, pctNb))
     return (NULL);

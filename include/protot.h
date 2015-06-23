@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Mon Jun 22 10:39:45 2015 sylvain garant
+** Last update Tue Jun 23 11:20:27 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -32,7 +32,9 @@ int     intlen(int *intstr);
 int     genetX(double *gen1, double *gen2);
 
 /* network.c */
-double  *neural_network(double *genome, double *input);
+double	*nn(t_lyr *network, double *genome, double *input, double *output,
+	    int outputSize);
+t_lyr   *init_network(double *genome, double **output);
 
 /* get_next_line.c */
 char	*get_next_line(const int fd);
@@ -48,6 +50,7 @@ void    free_img(t_img *destroy);
 void    user_input(int argc, char **argv, t_cnf *cnf);
 int     save_genome(char *file, double *genome);
 int	create_io_pct(char *pct, double **input, double **output);
+int     create_io_img(t_img *top, char *opt, double **input, double **output);
 
 /* toolbox.c */
 int     doublen(double *dlen);
@@ -59,5 +62,9 @@ int	best_doubtab(double *doubtab[], double *out, int size);
 void    write_genome(int fd, double *doubtab);
 int     acceptation(double *st, double *nd, int size, double acc);
 double  to_zero(double thing);
+int     strtablen(char **st);
 
+/* generator.c */
+double	*generator(double *ipt, int iptSize,
+		   double *opt, int optSize, double acc);
 #endif

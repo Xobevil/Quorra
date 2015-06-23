@@ -5,10 +5,19 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Fri Jun 19 14:07:23 2015 sylvain garant
+** Last update Mon Jun 22 16:53:02 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
+
+int	strtablen(char **st)
+{
+  int	i;
+
+  i = -1;
+  while (st[++i]);
+  return (i);
+}
 
 void	write_genome(int fd, double *doubtab)
 {
@@ -19,37 +28,37 @@ void	write_genome(int fd, double *doubtab)
     }
 }
 
-double		doubtabavg(double *doubtab, int size)
+double		compute_delta(double *st, double *nd, int size)
 {
   int		i;
-  double	result;
+  double	delta;
 
+  delta = 0;
   i = -1;
-  result = 0;
   while (++i < size)
-    result += doubtab[i];
-  result /= size;
-  return (result);
+    delta += ABS(st[i] - nd[i]);
+  return (delta);
 }
 
 int		best_doubtab(double *doubtab[], double *out, int size)
 {
-  double	avgo;
-  double	avg;
-  int		buf;
+  double	delta[10];
+  double	buf;
   int		i;
+  int		bufi;
 
   i = -1;
-  buf = 0;
-  avgo = doubtabavg(out, size);
-  avg = doubtabavg(doubtab[0], size);
   while (++i < 10)
-    if (ABS(avgo - doubtabavg(doubtab[i], size)) < ABS(avgo - avg))
+    delta[i] = compute_delta(doubtab[i], out, size);
+  bufi = 0;
+  buf = delta[bufi];
+  while (--i >= 0)
+    if (delta[i] < buf)
       {
-	avg = doubtabavg(doubtab[i], size);
-	buf = i;
+	buf = delta[i];
+	bufi = i;
       }
-  return (buf);
+  return (bufi);
 }
 
 int     doubtabcmp(double *st, double *nd)
