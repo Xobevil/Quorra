@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Tue Jun 23 15:54:43 2015 sylvain garant
+** Last update Tue Jun 23 17:22:45 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -82,20 +82,6 @@ int     doublen(double *dlen)
   i = -1;
   while (dlen[++i]);
   return (i);
-}
-
-void	aff_gene(double gene)
-{
-  printf("%f\n", gene);
-}
-
-void		aff_genome(double *genome)
-{
-  double	gene;
-
-  get_gene(genome);
-  while ((gene = get_gene(NULL)))
-    aff_gene(gene);
 }
 
 void    free_network(t_lyr *network)

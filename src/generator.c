@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Mon Jun 22 13:55:35 2015 sylvain garant
-** Last update Tue Jun 23 15:58:42 2015 sylvain garant
+** Last update Wed Jun 24 11:34:54 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -43,12 +43,16 @@ int		init_netout(t_lyr **network, int *pctNb,
       opt[i] = NULL;
       genome[i] = NULL;
     }
+  while (--i >= 0)
+    if (!(generate_genome(3, pctNb, &genome[i])))
+      return (-1);
   free(gnm);
   free(output);
   return (0);
 }
 
-void    free_generator(double **genome, double **output, int bestGen, t_lyr *n)
+void    free_generator(double **genome, double **output, int bestGen, t_lyr *n,
+		       int *pctNb)
 {
   int   i;
 
@@ -60,6 +64,7 @@ void    free_generator(double **genome, double **output, int bestGen, t_lyr *n)
       free(output[i]);
     }
   free_network(n);
+  free(pctNb);
 }
 
 void	display_result(time_t start, double *output, int size, double *genome,
@@ -69,7 +74,7 @@ void	display_result(time_t start, double *output, int size, double *genome,
 
   i = -1;
   printf("Process terminated\n");
-  printf("Obtained output(s) from generation %d :\n", gen);
+  printf("Obtained output(s) from generation %d of size %d :\n", gen, GENSIZE);
   while (++i < size)
     printf("\t- %f\n", output[i]);
   printf("Genome generated size : %d genes\n", doublen(genome));
@@ -77,7 +82,7 @@ void	display_result(time_t start, double *output, int size, double *genome,
 }
 
 double		*generator(double *ipt, int iptSize,
-				   double *opt, int optSize, double acc)
+			   double *opt, int optSize, double acc)
 {
   double	*genome[GENSIZE];
   double	*output[GENSIZE];
@@ -97,18 +102,37 @@ double		*generator(double *ipt, int iptSize,
   actual = time(0);
   while (bestGen == -1 || !acceptation(output[bestGen], opt, optSize, acc))
     {
+      //i = -1;
+      //while (++i < GENSIZE)
+      //if (!(generate_genome(3, pctNb, &genome[i])))
+      //return (NULL);
+      if (bestGen != -1)
+	genetXlab(genome, output, opt, optSize);
       i = -1;
+      //while (--i >= 0)
       while (++i < GENSIZE)
-        if (!(generate_genome(3, pctNb, &genome[i])))
-          return (NULL);
-      while (--i >= 0)
         if (!(output[i] = nn(network, genome[i], ipt, output[i], optSize)))
           return (NULL);
       bestGen = best_doubtab(output, opt, optSize);
+
+
+      /* printf("%f\n", *output[0]); */
+      /* printf("%f\n", *output[1]); */
+      /* printf("%f\n", *output[2]); */
+      /* printf("%f\n", *output[3]); */
+      /* printf("%f\n", *output[4]); */
+      /* printf("%f\n", *output[5]); */
+      /* printf("%f\n", *output[6]); */
+      /* printf("%f\n", *output[7]); */
+      /* printf("%f\n", *output[8]); */
+      /* printf("%f\n\n", *output[9]); */
+
+
+      //printf("%f\n", *output[bestGen]);
+
       gen++;
     }
   display_result(actual, output[bestGen], optSize, genome[bestGen], gen);
-  free_generator(genome, output, bestGen, network);
-  free(pctNb);
+  free_generator(genome, output, bestGen, network, pctNb);
   return (genome[bestGen]);
 }

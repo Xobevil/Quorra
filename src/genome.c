@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 09:08:43 2015 sylvain garant
-** Last update Tue Jun 23 15:25:38 2015 sylvain garant
+** Last update Wed Jun 24 11:33:21 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -27,7 +27,7 @@ static double		generate_gene()
   double		gene;
 
   gene = (double) rand();
-  while ((gene /= 10) > 1);
+  while ((gene /= 10) > 0.01);
   return (gene);
 }
 

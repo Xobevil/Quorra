@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Tue Jun 23 15:24:09 2015 sylvain garant
+** Last update Tue Jun 23 17:09:06 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -29,7 +29,8 @@ int     match(char *s1, char *s2);
 int     intlen(int *intstr);
 
 /* genetX.c */
-int     genetX(double *gen1, double *gen2);
+void	genetXlab(double *genome[GENSIZE],
+		  double *output[GENSIZE], double *dOutput, int oSize);
 
 /* network.c */
 double	*nn(t_lyr *network, double *genome, double *input, double *output,
@@ -55,15 +56,13 @@ int     create_io_img(t_img *top, char *opt, double **input, double **output);
 
 /* toolbox.c */
 int     doublen(double *dlen);
-void    aff_gene(double gene);
-void    aff_genome(double *genome);
 void    free_network(t_lyr *network);
 int     doubtabcmp(double *st, double *nd);
 int	best_doubtab(double *doubtab[], double *out, int size);
 void    write_genome(int fd, double *doubtab);
 int     acceptation(double *st, double *nd, int size, double acc);
-double  to_zero(double thing);
 int     strtablen(char **st);
+double	compute_delta(double *st, double *nd, int size);
 
 /* generator.c */
 double	*generator(double *ipt, int iptSize,

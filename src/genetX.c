@@ -5,66 +5,87 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 10:50:15 2015 sylvain garant
-** Last update Fri Jun 19 16:10:37 2015 sylvain garant
+** Last update Wed Jun 24 11:28:34 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
 
-int	my_rand(int max)
+double		my_rand(int max)
 {
-  int	nb;
+  double	nb;
 
-  nb = rand();
+  nb = (double) rand();
   while ((nb /= 10) > max);
   return (nb);
 }
 
-double		genetX_double(double gen1, double gen2, char *bool)
+int	genetX(double *gen1, double *gen2, double *gen3)
 {
-  uDouble	res;
-  uDouble	buf1;
-  uDouble	buf2;
-  int		size;
-  int		i;
-
-  size = sizeof(double);
-  buf1.d = gen1;
-  buf2.d = gen2;
-  res.d = 0;
-  i = -1;
-  while (++i < size)
-    {
-      *bool = (my_rand(100) > 70) ? !(*bool) : (*bool);
-      if (*bool)
-	{
-	  if (buf2.i >> (size - i - 1) % 2)
-	    res.i += 1;
-	}
-      else
-	if (buf1.i >> (size - i - 1) % 2)
-	  res.i += 1;
-      if (res.i % 2)
-	res.i -= (my_rand(10000) == 42) ? 1 : 0;
-      else
-	res.i += (my_rand(10000) == 42) ? 1 : 0;
-      if (i + 1 < size)
-	res.i <<= 1;
-    }
-  return (res.d);
-}
-
-int	genetX(double *gen1, double *gen2)
-{
+  int	lyrSize;
   char	bool;
+  int	size;
+  int	i;
 
   bool = 0;
-  if (doublen(gen1) != doublen(gen2))
+  if (doublen(gen1) != doublen(gen2) && doublen(gen1) != doublen(gen3))
     return (-1);
-  while (*gen1)
+  i = -1;
+  lyrSize = (int) *gen1;
+  size = doublen(gen1) - (lyrSize + 1);
+  gen1 += lyrSize + 1;
+  gen2 += lyrSize + 1;
+  gen3 += lyrSize + 1;
+  while (++i < size)
     {
-      *gen1 = genetX_double(*gen1, *gen2, &bool);
-      gen1++;
-      gen2++;
+      bool = ((rand() % 100) > 70) ? !bool : bool;
+      gen3[i] = (bool ? (gen1[i]) : (gen2[i]));
+      if ((rand() % 10000) == 42)
+	gen3[i] = my_rand(1);
     }
   return (0);
+}
+
+void	momndad(int *st, int *nd,
+		double *output[GENSIZE], double *dOutput, int oSize)
+{
+  double	delta[GENSIZE];
+  double	bufst;
+  double	bufnd;
+  int		i;
+
+  i = -1;
+  while (++i < GENSIZE)
+    delta[i] = compute_delta(output[i], dOutput, oSize);
+  *st = 0;
+  bufst = delta[*st];
+  while (--i >= 0)
+    if (bufst > delta[i])
+      {
+	*st = i;
+	bufst = delta[i];
+      }
+  *nd = (!*st) ? 1 : 0;
+  bufnd = delta[*nd];
+  while (++i < GENSIZE)
+    if (i != *st && bufnd > delta[i])
+      {
+	*nd = i;
+	bufnd = delta[i];
+      }
+}
+
+void	genetXlab(double *genome[GENSIZE],
+		  double *output[GENSIZE], double *dOutput, int oSize)
+{
+  int	st;
+  int	nd;
+  int	i;
+
+  if (!output[0])
+    return ;
+  momndad(&st, &nd, output, dOutput, oSize);
+  i = -1;
+  while (++i < GENSIZE)
+    if (i != st && i != nd)
+      genetX(genome[st], genome[nd], genome[i]);
 }
