@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 14:40:39 2015 sylvain garant
-** Last update Tue Jun 23 15:52:24 2015 sylvain garant
+** Last update Wed Jun 24 14:42:53 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -104,12 +104,12 @@ double		*nn(t_lyr *network, double *genome,
   return (output);
 }
 
-int	do_nn(double *genome, double *input, double *output)
+int	neural_network(double *genome, double *input, double **output)
 {
   t_lyr	*network;
   int	i;
 
-  if (!(network = init_network(genome, &output)))
+  if (!(network = init_network(genome, output)))
     return (-1);
   i = -1;
   genome += ((int) *genome) + 1;
@@ -120,7 +120,7 @@ int	do_nn(double *genome, double *input, double *output)
         write(2, "step(): Too short genome\n", 25);
         return (-1);
       }
-  fillout4(network[i].lyr, network[i].lyrSize, output);
+  fillout4(network[i].lyr, network[i].lyrSize, *output);
   free_network(network);
   return (0);
 }

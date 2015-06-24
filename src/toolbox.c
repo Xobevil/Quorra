@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Tue Jun 23 17:22:45 2015 sylvain garant
+** Last update Wed Jun 24 13:55:46 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -107,4 +107,40 @@ int	acceptation(double *st, double *nd, int size, double acc)
     if (ABS((st[i] - nd[i])) > acc)
       return (0);
   return (1);
+}
+
+double          *recover_genome(char *file)
+{
+  int           genomeSize;
+  double        lyrSize;
+  double        *genome;
+  double        *pctNb;
+  int           fd;
+  int           i;
+
+  if ((fd = open(file, O_RDONLY)) == -1)
+    return (NULL);
+  read(fd, &lyrSize, sizeof(double));
+  if (!(pctNb = malloc(sizeof(double) * (lyrSize + 1))))
+    return (NULL);
+  i = -1;
+  while (++i < lyrSize)
+    read(fd, &(pctNb[i]), sizeof(double));
+  pctNb[i] = 0;
+  genomeSize = doublen(pctNb) + 1;
+  i = -1;
+  while (++i < lyrSize - 1)
+    genomeSize += pctNb[i] * pctNb[i + 1] + pctNb[i + 1];
+  if (!(genome = malloc(sizeof(double) * (genomeSize + 1))))
+    return (NULL);
+  genome[0] = lyrSize;
+  i = 0;
+  while (++i < lyrSize + 1)
+    genome[i] = pctNb[i - 1];
+  while (i < genomeSize)
+    read(fd, &(genome[i++]), sizeof(double));
+  genome[i] = 0;
+  free(pctNb);
+  close(fd);
+  return (genome);
 }

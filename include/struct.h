@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:34:04 2015 sylvain garant
-** Last update Mon Jun 22 12:59:08 2015 sylvain garant
+** Last update Wed Jun 24 13:16:53 2015 sylvain garant
 */
 
 #ifndef STRUCT_H_
@@ -32,6 +32,7 @@ typedef struct	s_cnf
   char		*opt;
   char		*pct;
   char		*acc;
+  char		*gen;
 }		t_cnf;
 
 typedef struct	s_img

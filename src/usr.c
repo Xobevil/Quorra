@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:07:14 2015 sylvain garant
-** Last update Tue Jun 23 14:44:51 2015 sylvain garant
+** Last update Wed Jun 24 14:29:56 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -41,7 +41,7 @@ void    user_input(int argc, char **argv, t_cnf *cnf)
       else if (match(argv[i], "-g") && i + 1 < argc)
         {
           cnf->conf |= GEN;
-          cnf->opt = argv[i + 1];
+          cnf->gen = argv[i + 1];
 	}
       else if (match(argv[i], "-pct") && i + 1 < argc)
         {
@@ -137,4 +137,24 @@ int		create_io_img(t_img *top, char *opt,
   *input = i;
   *output = o;
   return (outputSize);
+}
+
+int		create_i(char *ipt, double **input)
+{
+  double	*i;
+  char		**st;
+
+  if (!match(ipt, "*.pgm") && !match(ipt, "*,*") && !match(ipt, "* *"))
+    return (printerr(21));
+  if (match(ipt, "*.pgm"))
+    return (-1);
+  if (!(i = malloc(sizeof(double) * 2)))
+    return (printerr(11));
+  if (!(st = strtowordtab(ipt, ", ")) || !st[0] || !st[1] || st[2])
+    return (-1);
+  i[0] = atof(st[0]);
+  i[1] = atof(st[1]);
+  *input = i;
+  free(st);
+  return (0);
 }

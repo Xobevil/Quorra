@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Tue Jun 23 17:09:06 2015 sylvain garant
+** Last update Wed Jun 24 14:41:22 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -36,7 +36,7 @@ void	genetXlab(double *genome[GENSIZE],
 double	*nn(t_lyr *network, double *genome, double *input, double *output,
 	    int outputSize);
 t_lyr   *init_network(double *genome, double **output);
-int     do_nn(double *genome, double *input, double *output);
+int     neural_network(double *genome, double *input, double **output);
 
 /* get_next_line.c */
 char	*get_next_line(const int fd);
@@ -53,6 +53,7 @@ void    user_input(int argc, char **argv, t_cnf *cnf);
 int     save_genome(char *file, double *genome);
 int	create_io_pct(char *pct, double **input, double **output);
 int     create_io_img(t_img *top, char *opt, double **input, double **output);
+int     create_i(char *ipt, double **input);
 
 /* toolbox.c */
 int     doublen(double *dlen);
@@ -63,6 +64,7 @@ void    write_genome(int fd, double *doubtab);
 int     acceptation(double *st, double *nd, int size, double acc);
 int     strtablen(char **st);
 double	compute_delta(double *st, double *nd, int size);
+double	*recover_genome(char *file);
 
 /* generator.c */
 double	*generator(double *ipt, int iptSize,

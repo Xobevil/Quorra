@@ -5,19 +5,32 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:24:22 2015 sylvain garant
-** Last update Tue Jun 23 14:59:26 2015 sylvain garant
+** Last update Wed Jun 24 14:42:42 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
 
 int	preliminary(t_cnf *cnf, t_img **img, t_put *input, t_put *output)
 {
-  if (IS_PCT(cnf->conf))
+  if (IS_PCT(cnf->conf) && !IS_GEN(cnf->conf))
     {
       if (create_io_pct(cnf->pct, &(input->put), &(output->put)))
 	return (printerr(9));
       input->size = 2;
       output->size = 1;
+    }
+  else if (IS_GEN(cnf->conf) && (IS_IPT(cnf->conf) || IS_PCT(cnf->conf)))
+    {
+      if (IS_IPT(cnf->conf))
+	if (create_i(cnf->ipt, &(input->put)))
+	  return (-1);
+      if (IS_PCT(cnf->conf))
+	{
+	  if (create_i(cnf->pct, &(input->put)))
+	    return (-1);
+	  output->size = 1;
+	}
+      input->size = 2;
     }
   else if (IS_IPT(cnf->conf) && IS_OPT(cnf->conf) && !IS_GEN(cnf->conf))
     {
@@ -34,6 +47,8 @@ int	preliminary(t_cnf *cnf, t_img **img, t_put *input, t_put *output)
 
 int	processing(t_cnf *cnf, double **genome, t_put *input, t_put *output)
 {
+  int	i;
+
   if (input->put && output->put)
     {
       if (IS_ACC(cnf->conf))
@@ -44,10 +59,21 @@ int	processing(t_cnf *cnf, double **genome, t_put *input, t_put *output)
         }
       else
         if (!(*genome = generator(input->put, input->size,
-				  output->put, output->size, 0.0)))
+				  output->put, output->size, 0.00000001)))
           return (printerr(10));
       if (genome && IS_SVE(cnf->conf))
         save_genome(cnf->sve, *genome);
+    }
+  else if (IS_GEN(cnf->conf) && input->put && !(output->put))
+    {
+      if (!(*genome = recover_genome(cnf->gen)))
+	return (printerr(17));
+      if (neural_network(*genome, input->put, &(output->put)))
+	return (printerr(18));
+      i = -1;
+      printf("Output(s) :\n");
+      while (++i < output->size)
+	printf("\t- %f\n", output->put[i]);
     }
   return (0);
 }
@@ -78,9 +104,9 @@ int		main(int argc, char **argv)
   memset(&input, 0, sizeof(t_put));
   memset(&output, 0, sizeof(t_put));
   if (preliminary(&cnf, &img, &input, &output))
-    return (-1);
+    return (printerr(19));
   if (processing(&cnf, &genome, &input, &output))
-    return (-1);
+    return (printerr(20));
   freedom(&cnf, img, genome, &input, &output);
   return (0);
 }

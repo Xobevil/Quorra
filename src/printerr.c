@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 23:21:35 2015 sylvain garant
-** Last update Tue Jun 23 14:56:45 2015 sylvain garant
+** Last update Wed Jun 24 14:21:32 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -55,5 +55,15 @@ int     printerr(int errnb)
     write(2, "Failed to recover image\n", 24);
   else if (errnb == 16)
     write(2, "Failed to get img data\n", 23);
+  else if (errnb == 17)
+    write(2, "Failed recover genome\n", 22);
+  else if (errnb == 18)
+    write(2, "neural_network() failed\n", 24);
+  else if (errnb == 19)
+    write(2, "Preliminaries failed\n", 21);
+  else if (errnb == 20)
+    write(2, "Processing failed\n", 19);
+  else if (errnb == 21)
+    write(2, "Input must be PGM file or a perceptron\n", 39);
   return (-1);
 }
