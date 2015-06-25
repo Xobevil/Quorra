@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 16:23:22 2015 sylvain garant
-** Last update Mon Jun 22 11:20:14 2015 sylvain garant
+** Last update Thu Jun 25 09:53:10 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -35,15 +35,15 @@ int		get_data(FILE *fd, t_img *elem)
   size_t	len = 0;
 
   if (getline(&s, &len, fd) == -1)
-    return (-1);
+    return (printerr(22));
   while ((getline(&s, &len, fd)) != -1 && s[0] == '#');
   if (!(st = strtowordtab(s, " ")) || !st[0] || !st[1])
-    return (-1);
+    return (printerr(19));
   elem->x = atoi(st[0]);
   elem->y = atoi(st[1]);
   free(st);
   if (getline(&s, &len, fd) == -1)
-    return (-1);
+    return (printerr(22));
   elem->max = atoi(s);
   free(s);
   return (0);
@@ -59,7 +59,7 @@ int		recov_img(FILE *fd, t_img *elem)
   if (get_data(fd, elem))
     return (printerr(16));
   if (!(elem->pix = malloc(sizeof(char) * (elem->y * elem->x))))
-    return (-1);
+    return (printerr(11));
   while (getline(&s, &len, fd) != -1)
     elem->pix[++ln] = (unsigned char) atoi(s);
   free(s);
@@ -71,7 +71,7 @@ int     put_list(t_img **top, FILE *fd)
   t_img *elem;
 
   if (!(elem = malloc(sizeof(*elem))))
-    return (-1);
+    return (printerr(11));
   memset(elem, 0, sizeof(*elem));
   recov_img(fd, elem);
   elem->next = *top;

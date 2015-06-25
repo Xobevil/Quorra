@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 14:40:39 2015 sylvain garant
-** Last update Wed Jun 24 14:42:53 2015 sylvain garant
+** Last update Thu Jun 25 09:46:21 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -48,7 +48,7 @@ void	fill_input(t_pct *lyr, int lyrSize, double *input)
 
 int		step(t_lyr left, t_lyr right, double **genome)
 {
-  double	gene;
+  double	gene ;
   int		il;
   int		ir;
 

@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 23:21:35 2015 sylvain garant
-** Last update Wed Jun 24 14:21:32 2015 sylvain garant
+** Last update Thu Jun 25 10:51:48 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -20,7 +20,8 @@ void	display_help()
   printf("-s SAVE GENOME IN GEN FILE\n");
   printf("Example :\n\t./q -pct \"1,0,1\" -s perceptron.gen -a 0.18\n");
   printf("\t./q -i picture.pgm -o 1 -s img.gen -a 0.3\n");
-  printf("\t./q -pct \"0 1 0\" -g my_gene.gen\n");
+  printf("\t./q -pct \"0 1\" -g my_gene.gen\n");
+  printf("\t./q -i picture.pgm -g img.gen\n");
 }
 
 int     printerr(int errnb)
@@ -65,5 +66,13 @@ int     printerr(int errnb)
     write(2, "Processing failed\n", 19);
   else if (errnb == 21)
     write(2, "Input must be PGM file or a perceptron\n", 39);
+  else if (errnb == 22)
+    write(2, "getline() failed\n", 17);
+  else if (errnb == 23)
+    write(2, "generate_genome() failed\n", 25);
+  else if (errnb == 24)
+    write(2, "init_network() failed\n", 22);
+  else if (errnb == 25)
+    write(2, "add_img() failed\n", 17);
   return (-1);
 }

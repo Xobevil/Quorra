@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Mon Jun 22 13:55:35 2015 sylvain garant
-** Last update Wed Jun 24 12:02:46 2015 sylvain garant
+** Last update Thu Jun 25 10:52:50 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -35,9 +35,9 @@ int		init_netout(t_lyr **network, int *pctNb,
 
   i = -1;
   if (!(generate_genome(3, pctNb, &gnm)))
-    return (-1);
+    return (printerr(23));
   if (!(*network = init_network(gnm, &output)))
-    return (-1);
+    return (printerr(24));
   while (++i < GENSIZE)
     {
       opt[i] = NULL;
@@ -45,7 +45,7 @@ int		init_netout(t_lyr **network, int *pctNb,
     }
   while (--i >= 0)
     if (!(generate_genome(3, pctNb, &genome[i])))
-      return (-1);
+      return (printerr(23));
   free(gnm);
   free(output);
   return (0);
@@ -114,22 +114,6 @@ double		*generator(double *ipt, int iptSize,
         if (!(output[i] = nn(network, genome[i], ipt, output[i], optSize)))
           return (NULL);
       bestGen = best_doubtab(output, opt, optSize);
-
-
-      /* printf("%f\n", *output[0]); */
-      /* printf("%f\n", *output[1]); */
-      /* printf("%f\n", *output[2]); */
-      /* printf("%f\n", *output[3]); */
-      /* printf("%f\n", *output[4]); */
-      /* printf("%f\n", *output[5]); */
-      /* printf("%f\n", *output[6]); */
-      /* printf("%f\n", *output[7]); */
-      /* printf("%f\n", *output[8]); */
-      /* printf("%f\n\n", *output[9]); */
-
-
-      //printf("%f\n", *output[bestGen]);
-
       gen++;
     }
   display_result(actual, output[bestGen], optSize, genome[bestGen], gen);

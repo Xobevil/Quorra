@@ -5,7 +5,7 @@
 ## Login   <garant_s@epitech.net>
 ##
 ## Started on  Tue Jun 16 22:21:12 2015 sylvain garant
-## Last update Mon Jun 22 13:57:15 2015 sylvain garant
+## Last update Thu Jun 25 09:33:20 2015 sylvain garant
 ##
 
 NAME	= q
@@ -23,6 +23,7 @@ SRC	= src/$(NAME).c \
 	src/usr.c \
 	src/toolbox.c \
 	src/generator.c \
+	src/create_io.c \
 	src/open_file.c
 
 OBJ	= $(SRC:.c=.o)

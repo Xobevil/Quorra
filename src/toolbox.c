@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Wed Jun 24 13:55:46 2015 sylvain garant
+** Last update Thu Jun 25 09:41:13 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -109,7 +109,7 @@ int	acceptation(double *st, double *nd, int size, double acc)
   return (1);
 }
 
-double          *recover_genome(char *file)
+double          *recover_genome(char *file, int *oSize)
 {
   int           genomeSize;
   double        lyrSize;
@@ -127,6 +127,7 @@ double          *recover_genome(char *file)
   while (++i < lyrSize)
     read(fd, &(pctNb[i]), sizeof(double));
   pctNb[i] = 0;
+  *oSize = (int) pctNb[i - 1];
   genomeSize = doublen(pctNb) + 1;
   i = -1;
   while (++i < lyrSize - 1)

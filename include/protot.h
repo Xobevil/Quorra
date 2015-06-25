@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Wed Jun 24 14:41:22 2015 sylvain garant
+** Last update Thu Jun 25 09:35:52 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -51,9 +51,12 @@ void    free_img(t_img *destroy);
 /* usr.c */
 void    user_input(int argc, char **argv, t_cnf *cnf);
 int     save_genome(char *file, double *genome);
+
+/* create_io.c */
 int	create_io_pct(char *pct, double **input, double **output);
 int     create_io_img(t_img *top, char *opt, double **input, double **output);
 int     create_i(char *ipt, double **input);
+int	create_ipt_i(char *ipt, t_put *input);
 
 /* toolbox.c */
 int     doublen(double *dlen);
@@ -64,7 +67,7 @@ void    write_genome(int fd, double *doubtab);
 int     acceptation(double *st, double *nd, int size, double acc);
 int     strtablen(char **st);
 double	compute_delta(double *st, double *nd, int size);
-double	*recover_genome(char *file);
+double	*recover_genome(char *file, int *oSize);
 
 /* generator.c */
 double	*generator(double *ipt, int iptSize,
