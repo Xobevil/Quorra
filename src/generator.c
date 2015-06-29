@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Mon Jun 22 13:55:35 2015 sylvain garant
-** Last update Mon Jun 29 10:03:44 2015 sylvain garant
+** Last update Mon Jun 29 16:34:57 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -20,20 +20,26 @@ int     *create_pct_tab(int iptSize, int optSize, int lyrNb)
   i = 0;
   pctNb[0] = iptSize;
   while (++i < lyrNb - 1)
-    pctNb[i] = iptSize + 1;
+    //pctNb[i] = ABS(iptSize - optSize) / 2 + 2;
+    //pctNb[i] = iptSize + 2;
+    pctNb[i] = optSize * 4;
   pctNb[i++] = optSize;
   pctNb[i++] = 0;
   return (pctNb);
 }
 
-int		init_netout(t_lyr **network, int *pctNb,
+int		init_netout(t_lyr **network, int iptSize, int optSize,
 			    double *opt[GENSIZE], double *genome[GENSIZE])
 {
   double	*output;
-  double	*gnm = NULL;
+  int		*pctNb;
+  double	*gnm;
   int		i;
 
   i = -1;
+  gnm = NULL;
+  if (!(pctNb = create_pct_tab(iptSize, optSize, LYRNBR)))
+    return (-1);
   if (!(generate_genome(LYRNBR, pctNb, &gnm)))
     return (printerr(23));
   if (!(*network = init_network(gnm, &output)))
@@ -47,24 +53,9 @@ int		init_netout(t_lyr **network, int *pctNb,
     if (!(generate_genome(LYRNBR, pctNb, &genome[i])))
       return (printerr(23));
   free(gnm);
+  free(pctNb);
   free(output);
   return (0);
-}
-
-void    free_generator(double **genome, double **output, int bestGen, t_lyr *n,
-		       int *pctNb)
-{
-  int   i;
-
-  i = -1;
-  while (++i < GENSIZE)
-    {
-      if (bestGen != i)
-	free(genome[i]);
-      free(output[i]);
-    }
-  free_network(n);
-  free(pctNb);
 }
 
 void	display_result(time_t start, double *output, int size, double *genome,
@@ -77,8 +68,22 @@ void	display_result(time_t start, double *output, int size, double *genome,
   printf("Obtained output(s) from generation %d of size %d :\n", gen, GENSIZE);
   while (++i < size)
     printf("\t- %f\n", output[i]);
-  printf("Genome generated size : %d genes\n", doublen(genome));
+  printf("Genome generated size : %d genes\n", genlen(genome));
   printf("Time needed : %d second(s)\n", (int) (time(0) - start));
+}
+
+void    free_generator(double **genome, double **output, int bestGen, t_lyr *n)
+{
+  int   i;
+
+  i = -1;
+  while (++i < GENSIZE)
+    {
+      if (bestGen != i)
+	free(genome[i]);
+      free(output[i]);
+    }
+  free_network(n);
 }
 
 double		*generator(double *ipt, int iptSize,
@@ -86,20 +91,14 @@ double		*generator(double *ipt, int iptSize,
 {
   double	*genome[GENSIZE];
   double	*output[GENSIZE];
+  time_t	actual = time(0);
   t_lyr		*network = NULL;
-  int		bestGen;
-  int		*pctNb;
-  time_t	actual;
-  double	gen;
+  int		bestGen = -1;
+  double	gen = -1;
   int		i;
 
-  if (!(pctNb = create_pct_tab(iptSize, optSize, LYRNBR)))
+  if (init_netout(&network, iptSize, optSize, output, genome))
     return (NULL);
-  if (init_netout(&network, pctNb, output, genome))
-    return (NULL);
-  bestGen = -1;
-  gen = -1;
-  actual = time(0);
   while (bestGen == -1 || !acceptation(output[bestGen], opt, optSize, acc))
     {
       if (bestGen != -1)
@@ -112,6 +111,6 @@ double		*generator(double *ipt, int iptSize,
       gen++;
     }
   display_result(actual, output[bestGen], optSize, genome[bestGen], gen);
-  free_generator(genome, output, bestGen, network, pctNb);
+  free_generator(genome, output, bestGen, network);
   return (genome[bestGen]);
 }

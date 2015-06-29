@@ -5,15 +5,15 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 09:08:43 2015 sylvain garant
-** Last update Mon Jun 29 10:06:05 2015 sylvain garant
+** Last update Mon Jun 29 14:06:29 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
 
-static int	genome_size(int lyrNb, int *pctNb)
+int	genome_size(int lyrNb, int *pctNb)
 {
-  int		nb;
-  int		i;
+  int	nb;
+  int	i;
 
   nb = 0;
   i = -1;
@@ -22,16 +22,16 @@ static int	genome_size(int lyrNb, int *pctNb)
   return (nb);
 }
 
-static double		generate_gene()
+double		generate_gene()
 {
-  double		gene;
+  double	gene;
 
   gene = (double) rand();
-  while ((gene /= 10) > 0.01);
+  while ((gene /= 10) > RAND_GENE_MAX_VALUE);
   return (gene);
 }
 
-static int	check_param(int lyrNb, int *pctNb)
+int	check_param(int lyrNb, int *pctNb)
 {
   if (lyrNb <= 0)
     return (printerr(6));

@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Thu Jun 25 09:35:52 2015 sylvain garant
+** Last update Mon Jun 29 10:25:34 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -60,6 +60,7 @@ int	create_ipt_i(char *ipt, t_put *input);
 
 /* toolbox.c */
 int     doublen(double *dlen);
+int     genlen(double *dlen);
 void    free_network(t_lyr *network);
 int     doubtabcmp(double *st, double *nd);
 int	best_doubtab(double *doubtab[], double *out, int size);

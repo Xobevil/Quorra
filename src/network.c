@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 14:40:39 2015 sylvain garant
-** Last update Mon Jun 29 10:08:53 2015 sylvain garant
+** Last update Mon Jun 29 14:14:21 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -15,19 +15,20 @@ t_lyr   *init_network(double *genome, double **output)
   t_lyr *network;
   int   lyrSize;
   int   lyrNb;
-  int   i;
+  int   i = -1;
 
-  i = -1;
   get_gene(genome);
   lyrNb = get_gene(NULL);
   if (!(network = malloc(sizeof(t_lyr) * lyrNb)))
     return (NULL);
+  memset(network, 0, sizeof(t_lyr) * lyrNb);
   while (++i < lyrNb)
     {
       if ((lyrSize = get_gene(NULL)) == -1)
 	return (NULL);
       if (!(network[i].lyr = malloc(sizeof(t_pct) * lyrSize)))
         return (NULL);
+      memset(network[i].lyr, 0, sizeof(t_pct) * lyrSize);
       network[i].lyrID = i + 1;
       network[i].lyrSize = lyrSize;
     }
@@ -38,7 +39,7 @@ t_lyr   *init_network(double *genome, double **output)
   return (network);
 }
 
-void	fill_input(t_pct *lyr, int lyrSize, double *input)
+void	fillin(t_pct *lyr, int lyrSize, double *input)
 {
   int	i;
 
@@ -49,22 +50,23 @@ void	fill_input(t_pct *lyr, int lyrSize, double *input)
 
 int		step(t_lyr left, t_lyr right, double **genome)
 {
-  double	gene ;
+  double	gene;
   int		il;
   int		ir;
 
   ir = -1;
   get_gene(*genome);
+  memset(right.lyr, 0, sizeof(t_pct) * right.lyrSize);
   while (++ir < right.lyrSize)
     {
       il = -1;
-      right.lyr[ir].y = 0;
       while (++il < left.lyrSize)
   	{
 	  if ((gene = get_gene(NULL)) == -1)
 	    return (-1);
 	  (*genome)++;
 	  right.lyr[ir].y += gene * left.lyr[il].y;
+	  gene = 0;
   	}
       if ((gene = get_gene(NULL)) == -1)
 	return (-1);
@@ -84,6 +86,14 @@ void	fillout4(t_pct *olyr, int lyrSize, double *output)
     output[i] = olyr[i].y;
 }
 
+/*
+** nn() and neural_network() do the same, but neural_network() allocs and frees
+** what it needs to work, so it is slower for processing, nn() get these datas
+** in parameter.
+** neural_network() is used for single use, nn() is more adapted for loops of
+** computation.
+*/
+
 double	*nn(t_lyr *network, double *genome, double *input,
 	    double *output, int outputSize)
 {
@@ -94,7 +104,7 @@ double	*nn(t_lyr *network, double *genome, double *input,
   if (!output)
     if (!(output = malloc(sizeof(double) * outputSize)))
       return (NULL);
-  fill_input(network->lyr, network->lyrSize, input);
+  fillin(network->lyr, network->lyrSize, input);
   while (network[++i].lyrID)
     if (step(network[i], network[i + 1], &genome))
       {
@@ -114,7 +124,7 @@ int	neural_network(double *genome, double *input, double **output)
     return (-1);
   i = -1;
   genome += ((int) *genome) + 1;
-  fill_input(network->lyr, network->lyrSize, input);
+  fillin(network->lyr, network->lyrSize, input);
   while (network[++i].lyrID)
     if (step(network[i], network[i + 1], &genome))
       {

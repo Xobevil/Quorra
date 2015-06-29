@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Thu Jun 25 09:41:13 2015 sylvain garant
+** Last update Mon Jun 29 10:25:20 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -81,6 +81,15 @@ int     doublen(double *dlen)
 
   i = -1;
   while (dlen[++i]);
+  return (i);
+}
+
+int     genlen(double *dlen)
+{
+  int   i;
+
+  i = -1;
+  while (dlen[++i] != -1);
   return (i);
 }
 

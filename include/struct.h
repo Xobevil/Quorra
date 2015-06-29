@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:34:04 2015 sylvain garant
-** Last update Wed Jun 24 13:16:53 2015 sylvain garant
+** Last update Mon Jun 29 13:09:42 2015 sylvain garant
 */
 
 #ifndef STRUCT_H_
@@ -46,7 +46,6 @@ typedef struct	s_img
 
 typedef struct	s_pct
 {
-  double	teta;
   double	y;
 }		t_pct;
 
