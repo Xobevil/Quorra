@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Mon Jun 22 13:55:35 2015 sylvain garant
-** Last update Thu Jun 25 10:52:50 2015 sylvain garant
+** Last update Mon Jun 29 10:03:44 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -34,7 +34,7 @@ int		init_netout(t_lyr **network, int *pctNb,
   int		i;
 
   i = -1;
-  if (!(generate_genome(3, pctNb, &gnm)))
+  if (!(generate_genome(LYRNBR, pctNb, &gnm)))
     return (printerr(23));
   if (!(*network = init_network(gnm, &output)))
     return (printerr(24));
@@ -44,7 +44,7 @@ int		init_netout(t_lyr **network, int *pctNb,
       genome[i] = NULL;
     }
   while (--i >= 0)
-    if (!(generate_genome(3, pctNb, &genome[i])))
+    if (!(generate_genome(LYRNBR, pctNb, &genome[i])))
       return (printerr(23));
   free(gnm);
   free(output);
@@ -93,7 +93,7 @@ double		*generator(double *ipt, int iptSize,
   double	gen;
   int		i;
 
-  if (!(pctNb = create_pct_tab(iptSize, optSize, 3)))
+  if (!(pctNb = create_pct_tab(iptSize, optSize, LYRNBR)))
     return (NULL);
   if (init_netout(&network, pctNb, output, genome))
     return (NULL);
@@ -102,14 +102,9 @@ double		*generator(double *ipt, int iptSize,
   actual = time(0);
   while (bestGen == -1 || !acceptation(output[bestGen], opt, optSize, acc))
     {
-      //i = -1;
-      //while (++i < GENSIZE)
-      //if (!(generate_genome(3, pctNb, &genome[i])))
-      //return (NULL);
       if (bestGen != -1)
-	genetXlab(genome, output, opt, optSize);
+      	genetXlab(genome, output, opt, optSize);
       i = -1;
-      //while (--i >= 0)
       while (++i < GENSIZE)
         if (!(output[i] = nn(network, genome[i], ipt, output[i], optSize)))
           return (NULL);

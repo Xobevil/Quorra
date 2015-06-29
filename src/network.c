@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 14:40:39 2015 sylvain garant
-** Last update Thu Jun 25 09:46:21 2015 sylvain garant
+** Last update Mon Jun 29 10:08:53 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -24,8 +24,9 @@ t_lyr   *init_network(double *genome, double **output)
     return (NULL);
   while (++i < lyrNb)
     {
-      if (!(network[i].lyr =
-            malloc(sizeof(t_pct) * (lyrSize = get_gene(NULL)))))
+      if ((lyrSize = get_gene(NULL)) == -1)
+	return (NULL);
+      if (!(network[i].lyr = malloc(sizeof(t_pct) * lyrSize)))
         return (NULL);
       network[i].lyrID = i + 1;
       network[i].lyrSize = lyrSize;
@@ -60,12 +61,12 @@ int		step(t_lyr left, t_lyr right, double **genome)
       right.lyr[ir].y = 0;
       while (++il < left.lyrSize)
   	{
-	  if (!(gene = get_gene(NULL)))
+	  if ((gene = get_gene(NULL)) == -1)
 	    return (-1);
 	  (*genome)++;
 	  right.lyr[ir].y += gene * left.lyr[il].y;
   	}
-      if (!(gene = get_gene(NULL)))
+      if ((gene = get_gene(NULL)) == -1)
 	return (-1);
       (*genome)++;
       right.lyr[ir].y -= gene;
@@ -83,10 +84,10 @@ void	fillout4(t_pct *olyr, int lyrSize, double *output)
     output[i] = olyr[i].y;
 }
 
-double		*nn(t_lyr *network, double *genome,
-		    double *input, double *output, int outputSize)
+double	*nn(t_lyr *network, double *genome, double *input,
+	    double *output, int outputSize)
 {
-  int		i;
+  int	i;
 
   i = -1;
   genome += ((int) *genome) + 1;

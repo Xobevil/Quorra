@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 25 09:32:03 2015 sylvain garant
-** Last update Thu Jun 25 09:57:39 2015 sylvain garant
+** Last update Fri Jun 26 17:37:19 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -44,7 +44,7 @@ int             create_i(char *ipt, double **input)
     return (printerr(21));
   if (!(i = malloc(sizeof(double) * 2)))
     return (printerr(11));
-  if (!(st = strtowordtab(ipt, ", ")) || !st[0] || !st[1] || st[2])
+  if (!(st = strtowordtab(ipt, SEPARATOR_CHAR)) || !st[0] || !st[1] || st[2])
     return (printerr(13));
   i[0] = atof(st[0]);
   i[1] = atof(st[1]);
@@ -69,7 +69,7 @@ int             create_io_img(t_img *top, char *opt,
     return (-1);
   if (!(max = top->max))
     return (-1);
-  if (!(st = strtowordtab(opt, ", ")))
+  if (!(st = strtowordtab(opt, SEPARATOR_CHAR)))
     return (printerr(12));
   if (!st[0])
     return (printerr(13));

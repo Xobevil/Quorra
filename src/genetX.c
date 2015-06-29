@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Wed Jun 17 10:50:15 2015 sylvain garant
-** Last update Wed Jun 24 11:28:34 2015 sylvain garant
+** Last update Fri Jun 26 18:16:19 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -39,7 +39,7 @@ int	genetX(double *gen1, double *gen2, double *gen3)
     {
       bool = ((rand() % 100) > 70) ? !bool : bool;
       gen3[i] = (bool ? (gen1[i]) : (gen2[i]));
-      if ((rand() % 10000) == 42)
+      if ((rand() % MUTANT_RATE) == 42)
 	gen3[i] = my_rand(1);
     }
   return (0);
