@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 18 11:39:53 2015 sylvain garant
-** Last update Mon Jun 29 10:25:20 2015 sylvain garant
+** Last update Tue Jun 30 14:36:11 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -153,4 +153,28 @@ double          *recover_genome(char *file, int *oSize)
   free(pctNb);
   close(fd);
   return (genome);
+}
+
+void    aff_percent(double *opt, double *output, int optSize, double gen)
+{
+  system("clear");
+  printf("\nCompleted %d%% from generation %d\n\n",
+         (int) (100 - compute_delta(opt, output, optSize) * 100),
+         (((int) gen > pow(2, (sizeof(int) * 8))) ?
+          ((int) (pow(2, (sizeof(int) * 8)) - 1)) : ((int) gen)));
+}
+
+int             contOrStop(int sig)
+{
+  static int    x = 1;
+
+  if (sig != -1)
+    x = sig;
+  return (x);
+}
+
+void    stop_signal(int sig)
+{
+  if (sig == SIGINT)
+    contOrStop(0);
 }

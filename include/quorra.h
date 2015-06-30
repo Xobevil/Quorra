@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:25:00 2015 sylvain garant
-** Last update Mon Jun 29 16:13:59 2015 sylvain garant
+** Last update Tue Jun 30 15:09:13 2015 sylvain garant
 */
 
 #ifndef QUORRA_H_
@@ -19,14 +19,16 @@
 #include <sys/stat.h>
 
 #include <string.h>
+#include <signal.h>
 #include <fcntl.h>
 #include <time.h>
 #include <math.h>
 
 #define GENSIZE 100
-#define LYRNBR 3
+#define LYRNBR 4
 #define MUTANT_RATE 10000
 #define RAND_GENE_MAX_VALUE 0.01
+#define CHECKPOINT 5
 #define SEPARATOR_CHAR ", ;"
 
 #include "get_next_line.h"

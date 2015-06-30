@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Mon Jun 22 13:55:35 2015 sylvain garant
-** Last update Mon Jun 29 16:34:57 2015 sylvain garant
+** Last update Tue Jun 30 15:24:45 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -20,9 +20,9 @@ int     *create_pct_tab(int iptSize, int optSize, int lyrNb)
   i = 0;
   pctNb[0] = iptSize;
   while (++i < lyrNb - 1)
-    //pctNb[i] = ABS(iptSize - optSize) / 2 + 2;
-    //pctNb[i] = iptSize + 2;
-    pctNb[i] = optSize * 4;
+    pctNb[i] = ABS(iptSize - optSize) / 2 + 2;
+    //pctNb[i] = iptSize + 1;
+    //pctNb[i] = optSize * 4 - i;
   pctNb[i++] = optSize;
   pctNb[i++] = 0;
   return (pctNb);
@@ -38,6 +38,7 @@ int		init_netout(t_lyr **network, int iptSize, int optSize,
 
   i = -1;
   gnm = NULL;
+  signal(SIGINT, stop_signal);
   if (!(pctNb = create_pct_tab(iptSize, optSize, LYRNBR)))
     return (-1);
   if (!(generate_genome(LYRNBR, pctNb, &gnm)))
@@ -64,6 +65,12 @@ void	display_result(time_t start, double *output, int size, double *genome,
   int	i;
 
   i = -1;
+  if (!contOrStop(-1))
+    {
+      printf("\rProcess canceled\n");
+      return ;
+    }
+  system("clear");
   printf("Process terminated\n");
   printf("Obtained output(s) from generation %d of size %d :\n", gen, GENSIZE);
   while (++i < size)
@@ -86,12 +93,13 @@ void    free_generator(double **genome, double **output, int bestGen, t_lyr *n)
   free_network(n);
 }
 
-double		*generator(double *ipt, int iptSize,
-			   double *opt, int optSize, double acc)
+double		*generator(double *ipt, int iptSize, double *opt, int optSize,
+			   double acc)
 {
   double	*genome[GENSIZE];
   double	*output[GENSIZE];
   time_t	actual = time(0);
+  time_t	buftme = time(0);
   t_lyr		*network = NULL;
   int		bestGen = -1;
   double	gen = -1;
@@ -99,7 +107,8 @@ double		*generator(double *ipt, int iptSize,
 
   if (init_netout(&network, iptSize, optSize, output, genome))
     return (NULL);
-  while (bestGen == -1 || !acceptation(output[bestGen], opt, optSize, acc))
+  while ((bestGen == -1 || !acceptation(output[bestGen], opt, optSize, acc)) &&
+	 contOrStop(-1))
     {
       if (bestGen != -1)
       	genetXlab(genome, output, opt, optSize);
@@ -109,6 +118,11 @@ double		*generator(double *ipt, int iptSize,
           return (NULL);
       bestGen = best_doubtab(output, opt, optSize);
       gen++;
+      if ((((time(0) - buftme) % CHECKPOINT)) == 1)
+	{
+	  buftme = time(0);
+	  aff_percent(opt, output[bestGen], optSize, gen);
+	}
     }
   display_result(actual, output[bestGen], optSize, genome[bestGen], gen);
   free_generator(genome, output, bestGen, network);
