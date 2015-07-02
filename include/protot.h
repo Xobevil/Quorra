@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 22:45:12 2015 sylvain garant
-** Last update Tue Jun 30 14:35:34 2015 sylvain garant
+** Last update Tue Jun 30 16:43:36 2015 sylvain garant
 */
 
 #ifndef PROTOT_H_
@@ -71,7 +71,9 @@ double	compute_delta(double *st, double *nd, int size);
 double	*recover_genome(char *file, int *oSize);
 int	contOrStop(int sig);
 void    stop_signal(int sig);
-void    aff_percent(double *opt, double *output, int optSize, double gen);
+void    aff_percent(double *opt, double *output, int optSize, double gen,
+		    int actual);
+void    aff_time(int sec);
 
 /* generator.c */
 double	*generator(double *ipt, int iptSize,

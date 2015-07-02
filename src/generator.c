@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Mon Jun 22 13:55:35 2015 sylvain garant
-** Last update Tue Jun 30 15:24:45 2015 sylvain garant
+** Last update Wed Jul  1 13:24:02 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -20,8 +20,8 @@ int     *create_pct_tab(int iptSize, int optSize, int lyrNb)
   i = 0;
   pctNb[0] = iptSize;
   while (++i < lyrNb - 1)
-    pctNb[i] = ABS(iptSize - optSize) / 2 + 2;
-    //pctNb[i] = iptSize + 1;
+    //pctNb[i] = ABS(iptSize - optSize) / 2 + 1;
+    pctNb[i] = iptSize + 1;
     //pctNb[i] = optSize * 4 - i;
   pctNb[i++] = optSize;
   pctNb[i++] = 0;
@@ -76,7 +76,7 @@ void	display_result(time_t start, double *output, int size, double *genome,
   while (++i < size)
     printf("\t- %f\n", output[i]);
   printf("Genome generated size : %d genes\n", genlen(genome));
-  printf("Time needed : %d second(s)\n", (int) (time(0) - start));
+  aff_time((int) (time(0) - start));
 }
 
 void    free_generator(double **genome, double **output, int bestGen, t_lyr *n)
@@ -121,7 +121,7 @@ double		*generator(double *ipt, int iptSize, double *opt, int optSize,
       if ((((time(0) - buftme) % CHECKPOINT)) == 1)
 	{
 	  buftme = time(0);
-	  aff_percent(opt, output[bestGen], optSize, gen);
+	  aff_percent(opt, output[bestGen], optSize, gen, actual);
 	}
     }
   display_result(actual, output[bestGen], optSize, genome[bestGen], gen);
