@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Tue Jun 16 23:21:35 2015 sylvain garant
-** Last update Thu Jun 25 10:51:48 2015 sylvain garant
+** Last update Tue Jul  7 17:09:15 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -74,5 +74,7 @@ int     printerr(int errnb)
     write(2, "init_network() failed\n", 22);
   else if (errnb == 25)
     write(2, "add_img() failed\n", 17);
+  else if (errnb == 26)
+    write(2, "Perceptrons must only have 2 inputs\n", 49);
   return (-1);
 }

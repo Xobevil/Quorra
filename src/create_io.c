@@ -5,7 +5,7 @@
 ** Login   <garant_s@epitech.net>
 **
 ** Started on  Thu Jun 25 09:32:03 2015 sylvain garant
-** Last update Fri Jun 26 17:37:19 2015 sylvain garant
+** Last update Tue Jul  7 17:09:27 2015 sylvain garant
 */
 
 #include "../include/quorra.h"
@@ -45,7 +45,7 @@ int             create_i(char *ipt, double **input)
   if (!(i = malloc(sizeof(double) * 2)))
     return (printerr(11));
   if (!(st = strtowordtab(ipt, SEPARATOR_CHAR)) || !st[0] || !st[1] || st[2])
-    return (printerr(13));
+    return (printerr(26));
   i[0] = atof(st[0]);
   i[1] = atof(st[1]);
   *input = i;
